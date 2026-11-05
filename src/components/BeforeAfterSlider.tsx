@@ -119,6 +119,10 @@ export default function BeforeAfterSlider({
         onMouseUp={handleEnd}
         onMouseLeave={handleEnd}
         onMouseMove={handleMouseMove}
+        onTouchStart={(e) => {
+          setIsUserInteracting(true);
+          handleMove(e.touches[0].clientX);
+        }}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleEnd}
       >
@@ -134,10 +138,10 @@ export default function BeforeAfterSlider({
           />
           {/* After Badge */}
           <div
-            className="absolute top-5 right-5 z-10 px-4 py-2 rounded-full bg-[#171717]/90 backdrop-blur-md border border-[#C5A46D]/60 text-[#DFCA9F] text-xs font-semibold uppercase tracking-wider flex items-center gap-2 shadow-xl transition-opacity duration-300"
+            className="absolute top-3 right-3 sm:top-5 sm:right-5 z-10 px-2.5 py-1 sm:px-4 sm:py-2 rounded-full bg-[#171717]/90 backdrop-blur-md border border-[#C5A46D]/60 text-[#DFCA9F] text-[10px] sm:text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 sm:gap-2 shadow-xl transition-opacity duration-300"
             style={{ opacity: sliderPosition > 15 ? 1 : 0.4 }}
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
+            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C5A46D]" />
             <span>{afterLabel}</span>
           </div>
         </div>
@@ -156,10 +160,10 @@ export default function BeforeAfterSlider({
           />
           {/* Before Badge */}
           <div
-            className="absolute top-5 left-5 z-10 px-4 py-2 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-gray-200 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 shadow-xl transition-opacity duration-300"
+            className="absolute top-3 left-3 sm:top-5 sm:left-5 z-10 px-2.5 py-1 sm:px-4 sm:py-2 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-gray-200 text-[10px] sm:text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 sm:gap-2 shadow-xl transition-opacity duration-300"
             style={{ opacity: sliderPosition < 85 ? 1 : 0.4 }}
           >
-            <History className="w-3.5 h-3.5 text-gray-300" />
+            <History className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-300" />
             <span>{beforeLabel}</span>
           </div>
         </div>
