@@ -54,11 +54,11 @@ export default function WhyChooseUs() {
   return (
     <section className="py-24 sm:py-32 bg-[#FAF8F5] relative overflow-hidden">
       {/* Decorative Gold Dividers */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
+        <div className="text-left max-w-3xl mb-16 sm:mb-20">
           <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block mb-3"
           >
@@ -70,7 +70,7 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="text-3xl sm:text-5xl font-serif text-[#171717] tracking-tight font-normal"
+            className="text-3xl sm:text-5xl md:text-6xl font-serif text-[#171717] tracking-tight font-normal"
           >
             Craftsmanship That Makes a Difference.
           </motion.h2>
@@ -80,7 +80,7 @@ export default function WhyChooseUs() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="w-20 h-[2px] bg-[#C5A46D] mx-auto mt-6"
+            className="w-20 h-[2px] bg-[#C5A46D] mt-6 origin-left"
           />
         </div>
 

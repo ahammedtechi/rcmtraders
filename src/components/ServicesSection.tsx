@@ -14,39 +14,50 @@ export default function ServicesSection() {
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#C5A46D]/10 blur-[150px] pointer-events-none rounded-full" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#C5A46D]/5 blur-[120px] pointer-events-none rounded-full" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
+      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto relative z-10">
+        {/* Section Header - Left Aligned Editorial */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 sm:mb-20 pb-8 border-b border-white/10 text-left">
+          <div className="max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, x: -15 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-[#C5A46D]/30 text-[#DFCA9F] text-xs font-semibold tracking-[0.2em] uppercase mb-4"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
+              <span>OUR RENOVATION EXPERTISE</span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="text-3xl sm:text-5xl md:text-6xl font-serif tracking-tight text-white font-normal"
+            >
+              Designed Around Your Lifestyle.
+            </motion.h2>
+          </div>
+
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-[#C5A46D]/30 text-[#DFCA9F] text-xs font-semibold tracking-[0.2em] uppercase mb-4"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
-            <span>OUR RENOVATION EXPERTISE</span>
-          </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-3xl sm:text-5xl md:text-6xl font-serif tracking-tight text-white mb-6 font-normal"
-          >
-            Designed Around Your Lifestyle.
-          </motion.h2>
-
-          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-base sm:text-lg text-gray-300 font-sans font-light max-w-2xl mx-auto"
+            className="max-w-md text-left"
           >
-            Thoughtfully planned home improvements. Beautifully finished spaces.
-          </motion.p>
+            <p className="text-base sm:text-lg text-gray-300 font-sans font-light leading-relaxed mb-3">
+              Thoughtfully planned home improvements. Beautifully finished spaces across Worcester.
+            </p>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#DFCA9F] hover:text-white transition-colors"
+            >
+              <span>Explore All 6 Renovation Divisions</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </motion.div>
         </div>
 
         {/* Sophisticated Editorial Grid (6 Services) */}

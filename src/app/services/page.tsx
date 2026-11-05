@@ -18,7 +18,7 @@ export default function ServicesIndexPage() {
       <section className="py-20 sm:py-28 bg-[#171717] text-white relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C5A46D]/15 blur-[140px] pointer-events-none rounded-full" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-[#C5A46D]/40 text-[#DFCA9F] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
             <span>EXCELLENCE IN EVERY DETAIL</span>
@@ -28,7 +28,7 @@ export default function ServicesIndexPage() {
             Our Renovation <span className="italic text-[#DFCA9F]">Services</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-gray-300 font-sans max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-lg text-gray-300 font-sans max-w-2xl leading-relaxed font-light">
             Thoughtfully planned and immaculately executed home transformations across Worcester and Worcestershire.
           </p>
         </div>
@@ -36,7 +36,7 @@ export default function ServicesIndexPage() {
 
       {/* Services List in Alternating Editorial Layout */}
       <section className="py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 sm:space-y-32">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto space-y-24 sm:space-y-32">
           {servicesData.map((service, index) => {
             const isEven = index % 2 === 1;
             return (

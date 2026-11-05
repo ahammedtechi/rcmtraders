@@ -9,37 +9,41 @@ import { reviewsData, googleReviewsInfo } from "@/data/reviewsData";
 export default function TestimonialSection() {
   return (
     <section className="py-24 sm:py-32 bg-[#FAF8F5] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block mb-3"
-          >
-            HONEST CLIENT EXPERIENCES
-          </motion.span>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 sm:mb-20 text-left">
+          <div className="max-w-2xl">
+            <motion.span
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block mb-3"
+            >
+              HONEST CLIENT EXPERIENCES
+            </motion.span>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-3xl sm:text-5xl font-serif text-[#171717] tracking-tight font-normal mb-5"
-          >
-            What Our Customers Say.
-          </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="text-3xl sm:text-5xl md:text-6xl font-serif text-[#171717] tracking-tight font-normal"
+            >
+              What Our Customers Say.
+            </motion.h2>
+          </div>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-base text-gray-600 font-sans max-w-2xl mx-auto"
+            className="max-w-md text-left"
           >
-            Discover real feedback from homeowners across Worcester who trusted RCM Traders Limited with their kitchens, bathrooms, bespoke joinery, and home renovations.
-          </motion.p>
+            <p className="text-base text-gray-600 font-sans leading-relaxed">
+              Discover real feedback from homeowners across Worcester who trusted RCM Traders Limited with their kitchens, bathrooms, bespoke joinery, and home renovations.
+            </p>
+          </motion.div>
         </div>
 
         {/* Reviews Grid */}

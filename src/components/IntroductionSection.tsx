@@ -12,7 +12,7 @@ export default function IntroductionSection() {
       {/* Background Architectural Accent Lines */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#C5A46D]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Large Architectural Photograph Composition */}
           <motion.div

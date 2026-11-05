@@ -43,7 +43,7 @@ export default function ProjectsPage() {
       <section className="py-20 sm:py-28 bg-[#171717] text-white relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C5A46D]/15 blur-[140px] pointer-events-none rounded-full" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-[#C5A46D]/40 text-[#DFCA9F] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
             <span>PORTFOLIO OF COMPLETED WORKS</span>
@@ -53,7 +53,7 @@ export default function ProjectsPage() {
             Our Completed <span className="italic text-[#DFCA9F]">Projects</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-gray-300 font-sans max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-lg text-gray-300 font-sans max-w-2xl leading-relaxed font-light">
             Browse our gallery of kitchen transformations, bathroom renovations, bespoke fitted storage, media walls and flooring installations across Worcester.
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function ProjectsPage() {
 
       {/* Portfolio Gallery Section */}
       <section className="py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
           {/* Transparency Disclaimer Notice */}
           <div className="mb-12 p-4 sm:p-5 rounded-2xl bg-[#F4F1EA] border border-[#EAE8E3] flex items-start sm:items-center gap-3.5 text-xs text-gray-700">
             <Info className="w-5 h-5 text-[#9F7F48] shrink-0 mt-0.5 sm:mt-0" />
@@ -72,7 +72,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-16">
+          <div className="flex flex-wrap items-center justify-start gap-2 sm:gap-3 mb-16">
             {categories.map((cat) => {
               const isActive = activeCategory === cat.id;
               return (
@@ -176,7 +176,7 @@ export default function ProjectsPage() {
 
           {/* Interactive Before & After Spotlight */}
           <div className="mt-28 pt-20 border-t border-[#EAE8E3]">
-            <div className="max-w-4xl mx-auto">
+            <div className="w-full">
               <BeforeAfterSlider
                 beforeImage={beforeAfterComparison.beforeImage}
                 afterImage={beforeAfterComparison.afterImage}

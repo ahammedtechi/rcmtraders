@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, HelpCircle, Phone } from "lucide-react";
+import { ChevronDown, HelpCircle, Phone, ArrowRight, MessageSquare } from "lucide-react";
 import Link from "next/link";
 
 export default function FAQAccordion() {
@@ -47,80 +47,99 @@ export default function FAQAccordion() {
 
   return (
     <section className="py-24 sm:py-32 bg-[#FAF8F5] relative">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16 sm:mb-20">
-          <span className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block mb-3">
-            FREQUENTLY ASKED QUESTIONS
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-serif text-[#171717] tracking-tight font-normal mb-5">
-            Everything You Need to Know.
-          </h2>
-          <p className="text-base text-gray-600 font-sans max-w-xl mx-auto">
-            Clear, honest answers regarding our process, pricing, timelines, and service standards across Worcester.
-          </p>
-        </div>
+      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Left-Aligned Editorial Header & Support Box */}
+          <div className="lg:col-span-5 space-y-6 text-left lg:sticky lg:top-28">
+            <span className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block">
+              FREQUENTLY ASKED QUESTIONS
+            </span>
 
-        {/* Accordions */}
-        <div className="space-y-4">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            return (
-              <div
-                key={index}
-                className="rounded-2xl bg-white border border-[#EAE8E3] overflow-hidden transition-all duration-300 hover:border-[#C5A46D]/50 shadow-sm"
-              >
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full py-5 px-6 sm:px-8 text-left flex items-center justify-between gap-4 focus:outline-none"
-                  aria-expanded={isOpen}
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-serif text-[#171717] tracking-tight font-normal leading-tight">
+              Everything You Need to Know.
+            </h2>
+
+            <p className="text-base text-gray-600 font-sans leading-relaxed">
+              Clear, honest answers regarding our process, pricing, timelines, and service standards across Worcester and Worcestershire.
+            </p>
+
+            <div className="p-7 rounded-3xl bg-white border border-[#EAE8E3] shadow-md space-y-5">
+              <h4 className="font-serif font-bold text-lg text-[#171717]">
+                Have a specific question about your home?
+              </h4>
+              <p className="text-xs text-gray-600 leading-relaxed font-sans">
+                Our lead craftsman is available to answer questions or arrange a visit to inspect your space.
+              </p>
+
+              <div className="space-y-3 pt-1">
+                <a
+                  href="tel:07711960238"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-[#171717] text-white hover:bg-black transition-colors text-xs font-semibold uppercase tracking-wider"
                 >
-                  <span className="text-base sm:text-lg font-serif font-semibold text-[#171717] pr-2">
-                    {faq.question}
+                  <span className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-[#DFCA9F]" />
+                    Call 07711 960238
                   </span>
-                  <div
-                    className={`w-8 h-8 rounded-full border border-[#EAE8E3] flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                      isOpen ? "rotate-180 bg-[#171717] text-[#DFCA9F] border-[#171717]" : "text-gray-500 bg-[#FAF8F5]"
-                    }`}
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                  </div>
-                </button>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                    >
-                      <div className="px-6 sm:px-8 pb-6 text-sm text-gray-600 font-sans leading-relaxed border-t border-[#FAF8F5] pt-4">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <Link
+                  href="/contact"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-[#FAF8F5] border border-[#C5A46D]/40 text-[#171717] hover:border-[#C5A46D] transition-colors text-xs font-semibold uppercase tracking-wider"
+                >
+                  <span>Request a Free Quote</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#9F7F48]" />
+                </Link>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          </div>
 
-        {/* Further Assistance Banner */}
-        <div className="mt-12 text-center p-6 rounded-2xl bg-[#F4F1EA] border border-[#EAE8E3] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-700 font-sans text-center sm:text-left">
-            Have a question that isn&apos;t covered here? We&apos;re always ready to help.
-          </p>
-          <a
-            href="tel:07711960238"
-            className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#171717] text-[#DFCA9F] text-xs font-semibold uppercase tracking-wider hover:bg-black transition-colors"
-          >
-            <Phone className="w-3.5 h-3.5 text-[#DFCA9F]" />
-            <span>Call 07711 960238</span>
-          </a>
+          {/* Right Column: Accordions Full Width */}
+          <div className="lg:col-span-7 space-y-4">
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <div
+                  key={index}
+                  className="rounded-2xl bg-white border border-[#EAE8E3] overflow-hidden transition-all duration-300 hover:border-[#C5A46D]/50 shadow-sm"
+                >
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full py-5 px-6 sm:px-8 text-left flex items-center justify-between gap-4 focus:outline-none"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-base sm:text-lg font-serif font-semibold text-[#171717] pr-2">
+                      {faq.question}
+                    </span>
+                    <div
+                      className={`w-8 h-8 rounded-full border border-[#EAE8E3] flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                        isOpen ? "rotate-180 bg-[#171717] text-[#DFCA9F] border-[#171717]" : "text-gray-500 bg-[#FAF8F5]"
+                      }`}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                      >
+                        <div className="px-6 sm:px-8 pb-6 text-sm text-gray-600 font-sans leading-relaxed border-t border-[#FAF8F5] pt-4">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
   );
 }
-

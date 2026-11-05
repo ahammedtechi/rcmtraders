@@ -80,24 +80,24 @@ export default async function ServiceDetailPage({ params }: Props) {
         {/* Decorative Ambient Gold */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#C5A46D]/15 blur-[150px] pointer-events-none rounded-full" />
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 pb-20">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left pt-36 pb-20">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#C5A46D]/40 text-[#DFCA9F] text-xs font-semibold tracking-[0.25em] uppercase mb-6">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
             <span>{service.eyebrow}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight leading-tight mb-6">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight leading-tight mb-6 max-w-4xl">
             {service.headline}
           </h1>
 
-          <p className="text-base sm:text-xl text-gray-200 font-sans font-light max-w-3xl mx-auto leading-relaxed mb-10">
+          <p className="text-base sm:text-xl text-gray-200 font-sans font-light max-w-3xl leading-relaxed mb-10">
             {service.description}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-4">
             <a
               href="#quote-form"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#DFCA9F] via-[#C5A46D] to-[#9F7F48] text-[#171717] font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-xl"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#DFCA9F] via-[#C5A46D] to-[#9F7F48] text-[#171717] font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-xl"
             >
               <span>{service.ctaHeadline}</span>
               <ArrowRight className="w-4 h-4" />
@@ -105,7 +105,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
             <a
               href="tel:07711960238"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium text-xs uppercase tracking-widest backdrop-blur-md transition-all"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium text-xs uppercase tracking-widest backdrop-blur-md transition-all"
             >
               <Phone className="w-4 h-4 text-[#DFCA9F]" />
               <span>07711 960238</span>
@@ -116,7 +116,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       {/* 2. Detailed Service Overview & Features */}
       <section className="py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-8">
@@ -184,8 +184,8 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       {/* 3. Relevant Interior Image Gallery */}
       <section className="py-20 bg-[#171717] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left">
+          <div className="max-w-3xl mb-14 text-left">
             <span className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#DFCA9F] block mb-3">
               VISUAL INSPIRATION & FINISHES
             </span>
@@ -216,15 +216,15 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       {/* 4. Why Choose RCM For This Service */}
       <section className="py-24 sm:py-32 bg-[#FAF8F5]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left">
+          <div className="max-w-3xl mb-14 text-left">
             <span className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block mb-3">
               WHY RCM TRADERS LIMITED
             </span>
             <h2 className="text-3xl sm:text-5xl font-serif text-[#171717] tracking-tight font-normal mb-4">
               The Standard We Bring to Your Project
             </h2>
-            <div className="w-16 h-[2px] bg-[#C5A46D] mx-auto" />
+            <div className="w-16 h-[2px] bg-[#C5A46D]" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -250,8 +250,8 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       {/* 5. Service-Specific FAQs */}
       <section className="py-20 bg-[#F4F1EA] border-t border-[#EAE8E3]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left">
+          <div className="max-w-3xl mb-12 text-left">
             <span className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block mb-2">
               FREQUENTLY ASKED QUESTIONS
             </span>
@@ -280,7 +280,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       {/* 6. Related Services Section */}
       <section className="py-24 bg-[#171717] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12">
             <div>
               <span className="text-xs uppercase tracking-widest text-[#DFCA9F] font-semibold block mb-1">

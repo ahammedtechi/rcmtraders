@@ -36,41 +36,45 @@ export default function FeaturedProjects() {
 
   return (
     <section className="py-24 sm:py-32 bg-[#F4F1EA] text-[#171717] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block mb-3"
-          >
-            PORTFOLIO OF EXCELLENCE
-          </motion.span>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 text-left">
+          <div className="max-w-2xl">
+            <motion.span
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block mb-3"
+            >
+              PORTFOLIO OF EXCELLENCE
+            </motion.span>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-3xl sm:text-5xl font-serif text-[#171717] tracking-tight font-normal mb-5"
-          >
-            Spaces Reimagined. Homes Transformed.
-          </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="text-3xl sm:text-5xl md:text-6xl font-serif text-[#171717] tracking-tight font-normal"
+            >
+              Spaces Reimagined. Homes Transformed.
+            </motion.h2>
+          </div>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-base text-gray-600 font-sans max-w-2xl mx-auto"
+            className="max-w-md text-left"
           >
-            Explore our portfolio of home improvement projects and discover how thoughtful design and skilled workmanship can transform everyday spaces across Worcester.
-          </motion.p>
+            <p className="text-base text-gray-600 font-sans leading-relaxed">
+              Explore our portfolio of home improvement projects and discover how thoughtful design and skilled workmanship can transform everyday spaces across Worcester.
+            </p>
+          </motion.div>
         </div>
 
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-14">
+        <div className="flex flex-wrap items-center justify-start gap-2 sm:gap-3 mb-14">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -163,7 +167,7 @@ export default function FeaturedProjects() {
 
         {/* Interactive Before & After Section Spotlight */}
         <div className="mt-20 pt-16 border-t border-[#EAE8E3]">
-          <div className="max-w-4xl mx-auto">
+          <div className="w-full">
             <BeforeAfterSlider
               beforeImage={beforeAfterComparison.beforeImage}
               afterImage={beforeAfterComparison.afterImage}
@@ -176,7 +180,7 @@ export default function FeaturedProjects() {
         </div>
 
         {/* View All Projects CTA */}
-        <div className="mt-14 text-center">
+        <div className="mt-14 text-left">
           <Link
             href="/projects"
             className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#171717] text-[#DFCA9F] hover:bg-black font-semibold text-xs uppercase tracking-widest hover:shadow-xl transition-all"

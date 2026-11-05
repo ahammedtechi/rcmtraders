@@ -50,7 +50,7 @@ export default function AboutPage() {
       <section className="py-20 sm:py-28 bg-[#171717] text-white relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C5A46D]/15 blur-[140px] pointer-events-none rounded-full" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-[#C5A46D]/40 text-[#DFCA9F] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
             <span>OUR HERITAGE & VISION</span>
@@ -63,7 +63,7 @@ export default function AboutPage() {
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-gray-300 font-sans max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-lg text-gray-300 font-sans max-w-2xl leading-relaxed font-light">
             RCM Traders Limited is a dedicated Worcester home improvement company creating bespoke kitchens, bathrooms, bedrooms, and custom architectural features.
           </p>
         </div>
@@ -71,7 +71,7 @@ export default function AboutPage() {
 
       {/* Main Narrative & Company Story */}
       <section className="py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Story Image */}
             <div className="lg:col-span-6 relative">
@@ -145,7 +145,7 @@ export default function AboutPage() {
 
       {/* Mission & Vision Cards */}
       <section className="py-20 bg-[#171717] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             {/* Mission */}
             <div className="p-8 sm:p-12 rounded-3xl bg-[#202020] border border-white/10 hover:border-[#C5A46D]/50 transition-all shadow-xl relative overflow-hidden">
@@ -184,8 +184,8 @@ export default function AboutPage() {
 
       {/* Core Values Section */}
       <section className="py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left">
+          <div className="max-w-3xl mb-16 sm:mb-20 text-left">
             <span className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block mb-3">
               WHAT GUIDES US
             </span>

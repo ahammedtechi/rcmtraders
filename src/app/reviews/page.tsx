@@ -37,7 +37,7 @@ export default function ReviewsPage() {
       <section className="py-20 sm:py-28 bg-[#171717] text-white relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C5A46D]/15 blur-[140px] pointer-events-none rounded-full" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto text-left relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-[#C5A46D]/40 text-[#DFCA9F] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
             <span>VERIFIED CLIENT REVIEWS</span>
@@ -47,7 +47,7 @@ export default function ReviewsPage() {
             Customer <span className="italic text-[#DFCA9F]">Feedback</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-gray-300 font-sans max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-lg text-gray-300 font-sans max-w-2xl leading-relaxed font-light">
             Read honest appraisals from homeowners in Worcester and Worcestershire whose living spaces have been transformed by RCM Traders Limited.
           </p>
         </div>
@@ -55,7 +55,7 @@ export default function ReviewsPage() {
 
       {/* Main Reviews Content */}
       <section className="py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
           {/* Trust Banner & Google Reviews Integration Placeholder */}
           <div className="mb-14 p-8 rounded-3xl bg-white border border-[#EAE8E3] shadow-md grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             {/* Average Rating Box */}
@@ -102,7 +102,7 @@ export default function ReviewsPage() {
           </div>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
+          <div className="flex flex-wrap items-center justify-start gap-2 sm:gap-3 mb-12">
             {projectTypes.map((type) => {
               const isActive = filterProject === type.id;
               return (
