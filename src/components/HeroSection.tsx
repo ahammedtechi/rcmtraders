@@ -23,9 +23,9 @@ export default function HeroSection() {
   const transitionEase = [0.16, 1, 0.3, 1] as const;
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#171717]">
-      {/* Background Image with Cinematic Overlay */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative min-h-[92vh] sm:min-h-screen flex items-center overflow-hidden bg-[#171717]">
+      {/* 1. Desktop & Tablet Background Image (>= 768px): Full-bleed cinematic background */}
+      <div className="hidden md:block absolute inset-0 z-0">
         <Image
           src="/images/hero/luxury-kitchen-hero.jpg"
           alt="RCM Traders Limited Luxury Kitchen Renovation Worcester"
@@ -39,17 +39,22 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-black/60" />
       </div>
 
+      {/* 2. Mobile Ambient Glow Background (< 768px) */}
+      <div className="md:hidden absolute inset-0 z-0 bg-[#171717]">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[340px] h-[340px] bg-[#C5A46D]/10 blur-[100px] pointer-events-none rounded-full" />
+      </div>
+
       {/* Decorative Gold Glow Accent */}
-      <div className="absolute top-1/3 left-10 w-[700px] h-[350px] bg-[#C5A46D]/15 blur-[160px] pointer-events-none rounded-full" />
+      <div className="hidden md:block absolute top-1/3 left-10 w-[700px] h-[350px] bg-[#C5A46D]/15 blur-[160px] pointer-events-none rounded-full" />
 
       {/* Hero Full-Fit Content Container */}
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-20 pt-36 pb-20">
+      <div className="relative z-10 w-full px-5 sm:px-10 lg:px-14 xl:px-20 pt-24 sm:pt-36 pb-14 sm:pb-20">
         <AnimatePresence mode="wait">
           <motion.div
             key={animationKey}
             initial="hidden"
             animate="visible"
-            className="max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-5 text-left"
+            className="max-w-2xl lg:max-w-3xl space-y-3.5 sm:space-y-5 text-left"
           >
             {/* 1. Eyebrow Badge */}
             <div className="overflow-hidden pb-0.5">
@@ -57,7 +62,7 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: -20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.7, ease: transitionEase }}
-                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-[#C5A46D]/50 text-[#DFCA9F] text-[11px] sm:text-xs font-medium tracking-[0.2em] uppercase shadow-lg hover:border-[#C5A46D] transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-[#C5A46D]/50 text-[#DFCA9F] text-[10px] sm:text-xs font-medium tracking-[0.2em] uppercase shadow-lg hover:border-[#C5A46D] transition-colors"
               >
                 <Sparkles className="w-3 h-3 text-[#C5A46D] animate-pulse" />
                 <span>RCM TRADERS LIMITED | WORCESTER</span>
@@ -65,14 +70,14 @@ export default function HeroSection() {
             </div>
 
             {/* 2. Main Heading: Word-by-Word Masked Reveal Animation */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white tracking-tight leading-[1.1] font-normal">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white tracking-tight leading-[1.15] sm:leading-[1.1] font-normal">
               {/* Line 1: Beautiful Spaces. */}
               <span className="block overflow-hidden py-0.5">
                 <motion.span
                   initial={{ y: "115%", opacity: 0 }}
                   animate={{ y: "0%", opacity: 1 }}
                   transition={{ duration: 0.9, delay: 0.15, ease: transitionEase }}
-                  className="inline-block mr-3 sm:mr-4"
+                  className="inline-block mr-2.5 sm:mr-4"
                 >
                   Beautiful
                 </motion.span>
@@ -93,7 +98,7 @@ export default function HeroSection() {
                     initial={{ y: "115%", opacity: 0 }}
                     animate={{ y: "0%", opacity: 1 }}
                     transition={{ duration: 0.9, delay: 0.42, ease: transitionEase }}
-                    className="inline-block mr-3 sm:mr-4"
+                    className="inline-block mr-2.5 sm:mr-4"
                   >
                     Exceptional
                   </motion.span>
@@ -115,13 +120,36 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 25, filter: "blur(6px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.85, delay: 0.68, ease: transitionEase }}
-                className="text-base sm:text-lg md:text-xl text-gray-200 font-serif italic tracking-wide font-light"
+                className="text-sm sm:text-lg md:text-xl text-gray-200 font-serif italic tracking-wide font-light"
               >
                 Transforming Houses into Homes You&apos;ll Love.
               </motion.p>
             </div>
 
-            {/* 4. Description Paragraph */}
+            {/* 4. FULL IMAGE SHOWCASE ON MOBILE (< 768px):
+                Shows the entire luxury kitchen photo (marble island, bar stools, cabinetry, pendant lighting)
+                in crisp 16:10 resolution without cropping! */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.72, ease: transitionEase }}
+              className="md:hidden relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-2xl border border-[#C5A46D]/40 my-3"
+            >
+              <Image
+                src="/images/hero/luxury-kitchen-hero.jpg"
+                alt="RCM Traders Limited Luxury Kitchen Renovation Worcester"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 700px"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-2.5 left-3 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-[#DFCA9F] text-[10px] font-mono font-medium">
+                Worcester Renovation Atelier
+              </div>
+            </motion.div>
+
+            {/* 5. Description Paragraph (Refined & concise on mobile) */}
             <div className="overflow-hidden">
               <motion.p
                 initial={{ opacity: 0, y: 25 }}
@@ -129,20 +157,25 @@ export default function HeroSection() {
                 transition={{ duration: 0.85, delay: 0.8, ease: transitionEase }}
                 className="text-xs sm:text-sm md:text-base text-gray-300/90 font-sans max-w-2xl leading-relaxed font-light"
               >
-                From contemporary kitchens and luxurious bathrooms to bespoke bedroom cupboards, statement media walls and beautiful flooring, RCM Traders Limited brings your home improvement ideas to life.
+                <span className="sm:hidden">
+                  Contemporary kitchens, luxury bathrooms, bespoke storage and media walls crafted with precision across Worcester.
+                </span>
+                <span className="hidden sm:inline">
+                  From contemporary kitchens and luxurious bathrooms to bespoke bedroom cupboards, statement media walls and beautiful flooring, RCM Traders Limited brings your home improvement ideas to life.
+                </span>
               </motion.p>
             </div>
 
-            {/* 5. Call to Action Buttons */}
+            {/* 6. Call to Action Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 25, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.85, delay: 0.94, ease: transitionEase }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-3.5 pt-1"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-3 pt-1"
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-full bg-gradient-to-r from-[#DFCA9F] via-[#C5A46D] to-[#9F7F48] text-[#171717] font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-[0_0_30px_rgba(197,164,109,0.3)]"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-full bg-gradient-to-r from-[#DFCA9F] via-[#C5A46D] to-[#9F7F48] text-[#171717] font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-[0_0_30px_rgba(197,164,109,0.3)] text-center"
               >
                 <span>Get a Free Quote</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -150,30 +183,30 @@ export default function HeroSection() {
 
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-full bg-black/40 hover:bg-white/10 text-white border border-white/20 font-medium text-xs uppercase tracking-widest backdrop-blur-md transition-all hover:border-[#C5A46D]/60"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-full bg-black/40 hover:bg-white/10 text-white border border-white/20 font-medium text-xs uppercase tracking-widest backdrop-blur-md transition-all hover:border-[#C5A46D]/60 text-center"
               >
                 <span>Explore Our Services</span>
               </Link>
             </motion.div>
 
-            {/* 6. Left-Aligned Badges & Location Line */}
+            {/* 7. Left-Aligned Badges & Location Line */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.08 }}
-              className="pt-4 border-t border-white/15 flex flex-wrap items-center justify-start gap-5 sm:gap-7 text-[11px] sm:text-xs text-gray-300 font-light"
+              className="pt-3.5 border-t border-white/15 flex flex-wrap items-center justify-start gap-4 sm:gap-7 text-[11px] sm:text-xs text-gray-300 font-light"
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-[#DFCA9F]" />
                 <span>Serving Worcester & Worcestershire</span>
               </div>
-              <div className="w-1 h-1 rounded-full bg-[#C5A46D]" />
-              <div className="flex items-center gap-2">
+              <div className="w-1 h-1 rounded-full bg-[#C5A46D] hidden sm:block" />
+              <div className="flex items-center gap-1.5">
                 <Award className="w-3.5 h-3.5 text-[#DFCA9F]" />
-                <span>Complete Turnkey Renovations</span>
+                <span>Turnkey Renovations</span>
               </div>
-              <div className="w-1 h-1 rounded-full bg-[#C5A46D]" />
-              <div className="flex items-center gap-2">
+              <div className="w-1 h-1 rounded-full bg-[#C5A46D] hidden sm:block" />
+              <div className="flex items-center gap-1.5">
                 <span className="text-[#DFCA9F] font-semibold">Direct:</span>
                 <a href="tel:07711960238" className="hover:text-white underline decoration-[#C5A46D]">
                   07711 960238

@@ -8,7 +8,7 @@ import { ArrowRight, Phone, MessageSquare, Sparkles, CheckCircle2 } from "lucide
 
 export default function CTASection() {
   return (
-    <section className="relative py-28 sm:py-36 bg-[#171717] text-white overflow-hidden">
+    <section className="relative py-16 sm:py-28 lg:py-36 bg-[#171717] text-white overflow-hidden">
       {/* Background Photograph with Charcoal Gradient Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -26,15 +26,15 @@ export default function CTASection() {
       <div className="absolute top-1/2 left-10 w-[700px] h-[350px] bg-[#C5A46D]/15 blur-[160px] pointer-events-none rounded-full" />
 
       {/* Full-Fit Content Container */}
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className="relative z-10 w-full px-5 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Heading and Details */}
-          <div className="lg:col-span-8 space-y-6 text-left">
+          <div className="lg:col-span-8 space-y-4 sm:space-y-6 text-left">
             <motion.div
               initial={{ opacity: 0, x: -15 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#C5A46D]/40 text-[#DFCA9F] text-xs font-semibold tracking-[0.25em] uppercase"
+              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-[#C5A46D]/40 text-[#DFCA9F] text-[11px] sm:text-xs font-semibold tracking-[0.25em] uppercase"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
               <span>START YOUR HOME TRANSFORMATION</span>
@@ -45,7 +45,7 @@ export default function CTASection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight leading-tight font-normal"
+              className="text-2xl sm:text-5xl lg:text-6xl font-serif text-white tracking-tight leading-tight font-normal"
             >
               Let&apos;s Build Something <br />
               <span className="italic font-serif text-[#DFCA9F]">
@@ -58,7 +58,7 @@ export default function CTASection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-base sm:text-lg text-gray-300 font-sans max-w-2xl leading-relaxed font-light"
+              className="text-xs sm:text-base text-gray-300 font-sans max-w-2xl leading-relaxed font-light"
             >
               From the first idea to the finishing touches, let RCM Traders Limited help create a home you&apos;ll love coming back to. Contact our Worcester team for a free, no-obligation consultation and quotation.
             </motion.p>
@@ -68,19 +68,19 @@ export default function CTASection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-4 pt-2"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-3 sm:gap-4 pt-1 sm:pt-2"
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gradient-to-r from-[#DFCA9F] via-[#C5A46D] to-[#9F7F48] text-[#171717] font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-[0_0_35px_rgba(197,164,109,0.35)]"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-gradient-to-r from-[#DFCA9F] via-[#C5A46D] to-[#9F7F48] text-[#171717] font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-[0_0_30px_rgba(197,164,109,0.3)] text-center"
               >
                 <span>Request a Free Quote</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </Link>
 
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium text-xs uppercase tracking-widest backdrop-blur-md transition-all hover:border-[#C5A46D]/60"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium text-xs uppercase tracking-widest backdrop-blur-md transition-all hover:border-[#C5A46D]/60 text-center"
               >
                 <span>Contact Our Team</span>
               </Link>

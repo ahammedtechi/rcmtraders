@@ -541,31 +541,31 @@ function StepCardContent({
       </div>
 
       {/* Content */}
-      <div className="p-5 sm:p-7 lg:p-8 text-left space-y-3">
+      <div className="p-4 sm:p-7 lg:p-8 text-left space-y-2.5 sm:space-y-3">
         <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-sans font-semibold text-[#9F7F48] block">
           • {step.eyebrow}
         </span>
 
-        <h3 className="text-xl sm:text-2xl font-serif text-[#171717] font-semibold group-hover:text-[#9F7F48] transition-colors">
+        <h3 className="text-lg sm:text-2xl font-serif text-[#171717] font-semibold group-hover:text-[#9F7F48] transition-colors">
           {step.title}
         </h3>
 
-        <p className="text-xs sm:text-sm text-gray-600 font-sans leading-relaxed">
+        <p className="text-xs sm:text-sm text-gray-600 font-sans leading-relaxed line-clamp-2 sm:line-clamp-none">
           {step.description}
         </p>
 
         {/* Deliverables Checklist */}
-        <div className="pt-3 border-t border-[#EAE8E3] space-y-2">
+        <div className="pt-2.5 sm:pt-3 border-t border-[#EAE8E3] space-y-1.5 sm:space-y-2">
           <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold block">
             Key Deliverables:
           </span>
           <div className="flex flex-wrap gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-gray-700">
-            {step.highlights.map((h, i) => (
+            {step.highlights.slice(0, isMobile ? 2 : undefined).map((h, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FAF8F5] border border-[#EAE8E3]"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-[#FAF8F5] border border-[#EAE8E3]"
               >
-                <CheckCircle2 className="w-3 h-3 text-[#9F7F48]" />
+                <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9F7F48]" />
                 {h}
               </span>
             ))}

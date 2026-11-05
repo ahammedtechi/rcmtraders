@@ -8,21 +8,21 @@ import { ArrowRight, Check, Sparkles } from "lucide-react";
 
 export default function IntroductionSection() {
   return (
-    <section className="py-24 sm:py-32 bg-[#FAF8F5] relative overflow-hidden">
+    <section className="py-16 sm:py-28 lg:py-32 bg-[#FAF8F5] relative overflow-hidden">
       {/* Background Architectural Accent Lines */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#C5A46D]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="w-full px-5 sm:px-10 lg:px-14 xl:px-20 max-w-[1700px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
           {/* Left Column: Large Architectural Photograph Composition */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="lg:col-span-6 relative"
           >
-            <div className="relative aspect-[4/5] sm:aspect-[4/4.5] w-full rounded-2xl overflow-hidden shadow-2xl border border-[#C5A46D]/20">
+            <div className="relative aspect-[16/11] sm:aspect-[4/4.5] w-full rounded-2xl overflow-hidden shadow-2xl border border-[#C5A46D]/20">
               <Image
                 src="/images/services/bathroom-renovation.jpg"
                 alt="RCM Traders Limited Bespoke Bathroom & Interior Craftsmanship"
@@ -33,16 +33,16 @@ export default function IntroductionSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
               {/* Floating Architectural Badge */}
-              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-xl bg-[#171717]/90 backdrop-blur-md border border-[#C5A46D]/30 text-white shadow-xl">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#C5A46D]/20 border border-[#C5A46D] flex items-center justify-center text-[#DFCA9F] shrink-0">
-                    <Sparkles className="w-5 h-5" />
+              <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 p-3 sm:p-5 rounded-xl bg-[#171717]/90 backdrop-blur-md border border-[#C5A46D]/30 text-white shadow-xl">
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#C5A46D]/20 border border-[#C5A46D] flex items-center justify-center text-[#DFCA9F] shrink-0">
+                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-serif font-semibold text-white">
+                    <h4 className="text-xs sm:text-sm font-serif font-semibold text-white">
                       Bespoke Interiors in Worcester
                     </h4>
-                    <p className="text-xs text-gray-300 font-sans">
+                    <p className="text-[11px] sm:text-xs text-gray-300 font-sans line-clamp-1 sm:line-clamp-none">
                       Engineered for timeless beauty, ergonomic ease & durability.
                     </p>
                   </div>
@@ -58,15 +58,15 @@ export default function IntroductionSection() {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-            className="lg:col-span-6 space-y-8"
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+            className="lg:col-span-6 space-y-5 sm:space-y-8 text-left"
           >
-            <div className="space-y-3">
-              <span className="text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block">
+            <div className="space-y-2 sm:space-y-3">
+              <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] font-sans font-semibold text-[#9F7F48] block">
                 ABOUT RCM TRADERS LIMITED
               </span>
-              <h2 className="text-3xl sm:text-5xl font-serif text-[#171717] tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif text-[#171717] tracking-tight leading-tight">
                 Your Home. <br />
                 <span className="italic font-serif text-[#9F7F48]">Our Craft.</span> <br />
                 Your Vision.
@@ -75,43 +75,43 @@ export default function IntroductionSection() {
 
             <div className="w-16 h-[2px] bg-gradient-to-r from-[#C5A46D] to-transparent" />
 
-            <div className="space-y-5 text-gray-700 font-sans text-base leading-relaxed">
+            <div className="space-y-3 sm:space-y-5 text-gray-700 font-sans text-xs sm:text-base leading-relaxed">
               <p>
                 At RCM Traders Limited, we believe that every home deserves spaces that reflect the personality, lifestyle and aspirations of the people who live there.
               </p>
               <p>
-                Whether you&apos;re planning a complete kitchen transformation, refreshing your bathroom, installing bespoke bedroom storage or creating an impressive entertainment wall, we aim to deliver outstanding results with a personal, transparent approach.
+                Whether you&apos;re planning a complete kitchen transformation, refreshing your bathroom, installing bespoke bedroom storage or creating an impressive entertainment wall, we deliver outstanding results with a personal, transparent approach.
               </p>
-              <p>
-                Based in Worcester, our experienced craftsmen coordinate every stage—from initial spatial planning and material sourcing to precision joinery, plumbing, and fine detailing—ensuring peace of mind throughout your renovation journey.
+              <p className="hidden sm:block">
+                Based in Worcester, our experienced craftsmen coordinate every stage—from initial spatial planning and material sourcing to precision joinery, plumbing, and fine detailing.
               </p>
             </div>
 
             {/* Key Pillars */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-4 pt-1">
               {[
                 "Worcestershire Craftsmanship",
                 "Single Point of Responsibility",
                 "Bespoke Made-to-Measure Joinery",
                 "Transparent Fixed Quotations"
               ].map((item, index) => (
-                <div key={index} className="flex items-center gap-2.5">
-                  <div className="w-5 h-5 rounded-full bg-[#C5A46D]/15 flex items-center justify-center text-[#9F7F48] shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                <div key={index} className="flex items-center gap-2">
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#C5A46D]/15 flex items-center justify-center text-[#9F7F48] shrink-0">
+                    <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.5]" />
                   </div>
-                  <span className="text-sm font-medium text-[#171717]">{item}</span>
+                  <span className="text-xs sm:text-sm font-medium text-[#171717]">{item}</span>
                 </div>
               ))}
             </div>
 
             {/* Link to About Page */}
-            <div className="pt-4 flex items-center gap-6">
+            <div className="pt-2 sm:pt-4 flex items-center gap-6">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[#171717] group hover:text-[#9F7F48] transition-colors"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#171717] group hover:text-[#9F7F48] transition-colors"
               >
                 <span>Read Our Story & Philosophy</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </motion.div>
@@ -120,4 +120,3 @@ export default function IntroductionSection() {
     </section>
   );
 }
-
