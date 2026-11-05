@@ -122,7 +122,7 @@ export default function ProcessTimeline() {
       number: "04",
       eyebrow: "CRAFTSMANSHIP & TRANSFORMATION",
       title: "Installation & Transformation",
-      image: "/images/projects/project-kitchen-1.jpg",
+      image: "/images/projects/craftsmanship-installation.jpg",
       description:
         "The agreed work is carried out by skilled craftsmen with meticulous attention to joinery, subfloor preparation, tiling, and plumbing. We keep your home clean and protected every day.",
       highlights: ["Daily site clean & floor protection", "Single team accountability", "Exacting joins & finishes"],
