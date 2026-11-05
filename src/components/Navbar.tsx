@@ -41,6 +41,14 @@ export default function Navbar() {
     setServicesDropdownOpen(false);
   }, [pathname]);
 
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.dispatchEvent(new CustomEvent("rcm-replay-hero"));
+    }
+  };
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
@@ -69,6 +77,7 @@ export default function Navbar() {
           {/* Logo Brand */}
           <Link
             href="/"
+            onClick={handleHomeClick}
             className="flex items-center gap-3.5 group focus:outline-none"
             aria-label="RCM Traders Limited Homepage"
           >
@@ -177,6 +186,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
+                  onClick={link.href === "/" ? handleHomeClick : undefined}
                   className={`px-3.5 py-2 text-sm font-medium tracking-wide transition-colors relative ${
                     isActive
                       ? "text-[#DFCA9F]"
@@ -248,6 +258,10 @@ export default function Navbar() {
           <div className="space-y-2 pt-2">
             <Link
               href="/"
+              onClick={(e) => {
+                handleHomeClick(e);
+                setMobileMenuOpen(false);
+              }}
               className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
                 pathname === "/" ? "bg-white/10 text-[#DFCA9F]" : "text-white"
               }`}
