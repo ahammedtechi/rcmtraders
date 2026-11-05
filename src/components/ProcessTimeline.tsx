@@ -1,135 +1,73 @@
 "use client";
 
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
   Phone,
-  Compass,
-  FileCheck2,
-  Wrench,
-  Award,
   ChevronRight
 } from "lucide-react";
 import Link from "next/link";
 
+interface StepItem {
+  number: string;
+  shortTitle: string;
+  eyebrow: string;
+  title: string;
+  image: string;
+  description: string;
+  highlights: string[];
+  side: "left" | "right";
+}
+
 export default function ProcessTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const desktopPathRef = useRef<SVGPathElement>(null);
-  const mobilePathRef = useRef<SVGPathElement>(null);
 
   // Scroll tracking: Starts when timeline enters 65% of viewport;
-  // Completes when Step 5 reaches 60% of viewport (eye-level center)
+  // Completes when Step 5 reaches 60% of viewport (comfortable eye-level)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 65%", "end 60%"]
   });
 
-  // Snappy, silky smooth spring without sluggish lag
+  // Snappy, critically-damped spring for zero lag
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 170,
+    stiffness: 180,
     damping: 26,
     mass: 0.2,
     restDelta: 0.0005
   });
 
-  const [truckPos, setTruckPos] = useState({ x: 480, y: 80, angle: 90 });
-  const [mobileTruckPos, setMobileTruckPos] = useState({ x: 30, y: 60, angle: 90 });
   const [activeStep, setActiveStep] = useState(1);
 
-  // Desktop Path: ViewBox 0 0 1000 2500 (5 rows of 500px, centers at 250, 750, 1250, 1750, 2250)
-  const desktopPathData =
-    "M 480,80 L 480,250 C 480,480 520,520 520,750 C 520,980 480,1020 480,1250 C 480,1480 520,1520 520,1750 C 520,1980 500,2020 500,2250";
-
-  // Mobile Path: ViewBox 0 0 60 2500
-  const mobilePathData =
-    "M 30,60 L 30,250 C 30,480 36,520 36,750 C 36,980 24,1020 24,1250 C 24,1480 36,1520 36,1750 C 36,1980 30,2020 30,2250";
-
-  // Desktop milestone node positions
-  const desktopNodes = [
-    { number: "01", x: 480, y: 250 },
-    { number: "02", x: 520, y: 750 },
-    { number: "03", x: 480, y: 1250 },
-    { number: "04", x: 520, y: 1750 },
-    { number: "05", x: 500, y: 2250 }
-  ];
-
-  // Mobile milestone node positions
-  const mobileNodes = [
-    { number: "01", x: 30, y: 250 },
-    { number: "02", x: 36, y: 750 },
-    { number: "03", x: 24, y: 1250 },
-    { number: "04", x: 36, y: 1750 },
-    { number: "05", x: 30, y: 2250 }
-  ];
-
-  // Position update handler for both paths
-  const updateVehiclePositions = useCallback((progressValue: number) => {
-    const clamped = Math.max(0, Math.min(1, progressValue));
-
-    // Update Desktop Van
-    if (desktopPathRef.current) {
-      const path = desktopPathRef.current;
-      const total = path.getTotalLength();
-      const cur = clamped * total;
-      const pt = path.getPointAtLength(cur);
-
-      const lookAhead = Math.min(total, cur + 6);
-      const lookBehind = Math.max(0, cur - 2);
-      const p1 = path.getPointAtLength(lookBehind);
-      const p2 = path.getPointAtLength(lookAhead);
-
-      const angleRad = Math.atan2(p2.y - p1.y, p2.x - p1.x);
-      const angleDeg = (angleRad * 180) / Math.PI + 90;
-
-      setTruckPos({
-        x: pt.x,
-        y: pt.y,
-        angle: angleDeg
-      });
-    }
-
-    // Update Mobile Van
-    if (mobilePathRef.current) {
-      const pathM = mobilePathRef.current;
-      const totalM = pathM.getTotalLength();
-      const curM = clamped * totalM;
-      const ptM = pathM.getPointAtLength(curM);
-
-      const lookAheadM = Math.min(totalM, curM + 6);
-      const lookBehindM = Math.max(0, curM - 2);
-      const p1M = pathM.getPointAtLength(lookBehindM);
-      const p2M = pathM.getPointAtLength(lookAheadM);
-
-      const angleRadM = Math.atan2(p2M.y - p1M.y, p2M.x - p1M.x);
-      const angleDegM = (angleRadM * 180) / Math.PI + 90;
-
-      setMobileTruckPos({
-        x: ptM.x,
-        y: ptM.y,
-        angle: angleDegM
-      });
-    }
-
-    // Active Step Determination
-    if (clamped < 0.18) setActiveStep(1);
-    else if (clamped < 0.38) setActiveStep(2);
-    else if (clamped < 0.58) setActiveStep(3);
-    else if (clamped < 0.78) setActiveStep(4);
-    else setActiveStep(5);
-  }, []);
-
-  // Subscribe to spring motion updates and run once on mount
+  // Active step listener
   useEffect(() => {
-    updateVehiclePositions(smoothProgress.get());
     const unsubscribe = smoothProgress.on("change", (latest) => {
-      updateVehiclePositions(latest);
+      const clamped = Math.max(0, Math.min(1, latest));
+      if (clamped < 0.2) setActiveStep(1);
+      else if (clamped < 0.4) setActiveStep(2);
+      else if (clamped < 0.6) setActiveStep(3);
+      else if (clamped < 0.8) setActiveStep(4);
+      else setActiveStep(5);
     });
     return () => unsubscribe();
-  }, [smoothProgress, updateVehiclePositions]);
+  }, [smoothProgress]);
+
+  // Transform progress [0 -> 1] to van position [10% -> 90%] of container height
+  const vanTop = useTransform(smoothProgress, [0, 1], ["10%", "90%"]);
+
+  // Road gold fill height
+  const roadGoldHeight = useTransform(smoothProgress, [0, 1], ["10%", "90%"]);
+
+  // Subtle realistic vehicle steering angle as it moves between left & right cards
+  const vanRotate = useTransform(
+    smoothProgress,
+    [0, 0.12, 0.25, 0.37, 0.5, 0.62, 0.75, 0.87, 1],
+    [0, 10, 0, -10, 0, 10, 0, -10, 0]
+  );
 
   // Smooth scroll to a step on click
   const scrollToStep = (stepNumber: number) => {
@@ -139,7 +77,7 @@ export default function ProcessTimeline() {
     }
   };
 
-  const steps = [
+  const steps: StepItem[] = [
     {
       number: "01",
       shortTitle: "Enquiry",
@@ -285,160 +223,92 @@ export default function ProcessTimeline() {
         </div>
 
         {/* ============================================================ */}
-        {/* INTERACTIVE TIMELINE CONTAINER (Dual Desktop & Mobile Views) */}
+        {/* INTERACTIVE TIMELINE CONTAINER (Dynamic Natural Flow) */}
         {/* ============================================================ */}
         <div ref={containerRef} className="relative w-full">
           {/* ======================================================== */}
-          {/* 1. DESKTOP ROADMAP TRACK (Screen width >= 1024px) */}
+          {/* DESKTOP CENTER ROAD TRACK & TRAVELLING VAN (>= 1024px) */}
           {/* ======================================================== */}
-          <div className="hidden lg:block relative w-full h-[2500px]">
-            {/* SVG Serpentine Road & Travelling Van */}
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none z-10"
-              viewBox="0 0 1000 2500"
-              fill="none"
-              preserveAspectRatio="none"
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-20 pointer-events-none z-10">
+            {/* Background Base Dashed Road */}
+            <div className="absolute top-[10%] bottom-[10%] left-1/2 -translate-x-1/2 w-2 border-r-2 border-dashed border-[#D4CEBF] opacity-80" />
+
+            {/* Active Gold Filled Track */}
+            <motion.div
+              style={{
+                top: "10%",
+                height: roadGoldHeight
+              }}
+              className="absolute left-1/2 -translate-x-1/2 w-1.5 bg-gradient-to-b from-[#DFCA9F] via-[#C5A46D] to-[#9F7F48] rounded-full shadow-[0_0_12px_rgba(197,164,109,0.5)]"
+            />
+
+            {/* Animated Travelling RCM Renovation Van */}
+            <motion.div
+              style={{
+                top: vanTop,
+                rotate: vanRotate
+              }}
+              className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-20 transition-transform duration-75 ease-out"
             >
-              <defs>
-                <linearGradient id="headlight-beam" x1="0" y1="0" x2="0" y2="-1">
-                  <stop offset="0%" stopColor="#DFCA9F" stopOpacity="0.45" />
-                  <stop offset="100%" stopColor="#DFCA9F" stopOpacity="0" />
-                </linearGradient>
+              <svg viewBox="0 0 40 80" className="w-full h-full drop-shadow-xl overflow-visible">
+                <defs>
+                  <linearGradient id="headlight-beam" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#DFCA9F" stopOpacity="0.45" />
+                    <stop offset="100%" stopColor="#DFCA9F" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
 
-                <linearGradient id="gold-road" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#DFCA9F" />
-                  <stop offset="50%" stopColor="#C5A46D" />
-                  <stop offset="100%" stopColor="#9F7F48" />
-                </linearGradient>
-              </defs>
-
-              {/* Background Base Road */}
-              <path
-                d={desktopPathData}
-                stroke="#E2DDD5"
-                strokeWidth="10"
-                strokeLinecap="round"
-                strokeDasharray="8 8"
-                opacity="0.85"
-              />
-
-              {/* Active Filled Gold Road */}
-              <motion.path
-                ref={desktopPathRef}
-                d={desktopPathData}
-                stroke="url(#gold-road)"
-                strokeWidth="8"
-                strokeLinecap="round"
-                style={{
-                  pathLength: smoothProgress
-                }}
-              />
-
-              {/* Milestone Circular Pin Nodes */}
-              {desktopNodes.map((node, i) => {
-                const isPast = activeStep >= i + 1;
-                const isCurrent = activeStep === i + 1;
-                return (
-                  <g
-                    key={node.number}
-                    transform={`translate(${node.x}, ${node.y})`}
-                    className="cursor-pointer pointer-events-auto"
-                    onClick={() => scrollToStep(i + 1)}
-                  >
-                    {/* Outer pulse circle when active */}
-                    {isCurrent && (
-                      <circle r="28" fill="none" stroke="#C5A46D" strokeWidth="1.5" opacity="0.7">
-                        <animate attributeName="r" values="22;34;22" dur="2s" repeatCount="indefinite" />
-                        <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite" />
-                      </circle>
-                    )}
-
-                    {/* Main Node Disc */}
-                    <circle
-                      r="20"
-                      fill={isPast ? "#171717" : "#FFFFFF"}
-                      stroke={isPast ? "#C5A46D" : "#D4CEBF"}
-                      strokeWidth="3.5"
-                      className="transition-colors duration-300 shadow-lg"
-                    />
-
-                    {/* Step Number Text */}
-                    <text
-                      y="4"
-                      fill={isPast ? "#DFCA9F" : "#7A7568"}
-                      fontSize="12"
-                      fontWeight="bold"
-                      textAnchor="middle"
-                      fontFamily="monospace"
-                    >
-                      {node.number}
-                    </text>
-                  </g>
-                );
-              })}
-
-              {/* ==================================================== */}
-              {/* ANIMATED RCM RENOVATION VAN TRAVELLER (Desktop) */}
-              {/* ==================================================== */}
-              <g
-                transform={`translate(${truckPos.x}, ${truckPos.y}) rotate(${truckPos.angle})`}
-                className="transition-transform duration-75 ease-out"
-              >
-                {/* Headlight beam */}
+                {/* Headlight beam casting downward */}
                 <polygon
-                  points="-10,-32 -30,-85 30,-85 10,-32"
+                  points="14,65 5,115 35,115 26,65"
                   fill="url(#headlight-beam)"
                 />
 
                 {/* Van Body Shadow */}
                 <rect
-                  x="-18"
-                  y="-33"
-                  width="36"
-                  height="66"
-                  rx="8"
-                  fill="rgba(0,0,0,0.35)"
-                  filter="blur(3px)"
+                  x="5"
+                  y="12"
+                  width="30"
+                  height="56"
+                  rx="6"
+                  fill="rgba(0,0,0,0.3)"
+                  filter="blur(2px)"
                 />
 
-                {/* Van Body */}
+                {/* Van Body (Charcoal + Gold Trim) */}
                 <rect
-                  x="-16"
-                  y="-32"
-                  width="32"
-                  height="64"
+                  x="6"
+                  y="10"
+                  width="28"
+                  height="54"
                   rx="6"
                   fill="#171717"
                   stroke="#C5A46D"
-                  strokeWidth="2"
+                  strokeWidth="1.5"
                 />
 
-                {/* Front Windshield */}
+                {/* Windshield */}
                 <path
-                  d="M -12,-15 L -10,-26 L 10,-26 L 12,-15 Z"
+                  d="M 9,45 L 11,54 L 29,54 L 31,45 Z"
                   fill="#2E3338"
                   stroke="#474F56"
                   strokeWidth="0.5"
                 />
 
-                {/* Side Mirrors */}
-                <rect x="-19" y="-24" width="3" height="6" rx="1" fill="#C5A46D" />
-                <rect x="16" y="-24" width="3" height="6" rx="1" fill="#C5A46D" />
-
-                {/* Gold Top Roof Panel with RCM Lettering */}
+                {/* Gold Roof Panel with RCM text */}
                 <rect
-                  x="-11"
-                  y="-9"
-                  width="22"
-                  height="32"
-                  rx="3"
+                  x="10"
+                  y="18"
+                  width="20"
+                  height="24"
+                  rx="2.5"
                   fill="#C5A46D"
                 />
                 <text
-                  x="0"
-                  y="10"
+                  x="20"
+                  y="33"
                   fill="#171717"
-                  fontSize="8"
+                  fontSize="7"
                   fontWeight="900"
                   textAnchor="middle"
                   letterSpacing="0.05em"
@@ -447,301 +317,153 @@ export default function ProcessTimeline() {
                   RCM
                 </text>
 
+                {/* Side Mirrors */}
+                <rect x="3" y="44" width="3" height="5" rx="1" fill="#C5A46D" />
+                <rect x="34" y="44" width="3" height="5" rx="1" fill="#C5A46D" />
+
                 {/* Front Headlights */}
-                <circle cx="-10" cy="-31" r="2.5" fill="#FFF2B2" />
-                <circle cx="10" cy="-31" r="2.5" fill="#FFF2B2" />
+                <circle cx="10" cy="62" r="2.2" fill="#FFF2B2" />
+                <circle cx="30" cy="62" r="2.2" fill="#FFF2B2" />
 
                 {/* Rear Tail Lights */}
-                <rect x="-13" y="30" width="5" height="2" rx="0.5" fill="#EF4444" />
-                <rect x="8" y="30" width="5" height="2" rx="0.5" fill="#EF4444" />
-              </g>
-            </svg>
-
-            {/* Desktop Step Cards: 5 exact rows of 500px matching SVG node centers */}
-            <div className="relative z-20">
-              {steps.map((step, index) => {
-                const isLeft = step.side === "left";
-                const isActive = activeStep === index + 1;
-
-                return (
-                  <div
-                    key={step.number}
-                    id={`process-step-${index + 1}`}
-                    className="h-[500px] grid grid-cols-12 items-center"
-                  >
-                    <div
-                      className={`${
-                        isLeft
-                          ? "col-span-5 col-start-1"
-                          : "col-span-5 col-start-8"
-                      }`}
-                    >
-                      <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.6 }}
-                        className={`group rounded-3xl overflow-hidden bg-white border transition-all duration-500 shadow-lg hover:shadow-2xl ${
-                          isActive
-                            ? "border-[#C5A46D] ring-2 ring-[#C5A46D]/30 shadow-[0_15px_35px_rgba(197,164,109,0.2)]"
-                            : "border-[#EAE8E3] hover:border-[#C5A46D]/60"
-                        }`}
-                      >
-                        {/* Top Architectural Photograph */}
-                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100">
-                          <Image
-                            src={step.image}
-                            alt={step.title}
-                            fill
-                            sizes="(max-width: 1200px) 50vw, 450px"
-                            className="object-cover group-hover:scale-105 transition-transform duration-700"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-
-                          {/* Step Pill */}
-                          <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[#DFCA9F] text-xs font-mono font-bold">
-                            PHASE {step.number}
-                          </div>
-                        </div>
-
-                        {/* Card Content */}
-                        <div className="p-8 text-left space-y-3.5">
-                          <span className="text-[11px] uppercase tracking-[0.2em] font-sans font-semibold text-[#9F7F48] block">
-                            • {step.eyebrow}
-                          </span>
-
-                          <h3 className="text-2xl font-serif text-[#171717] font-semibold group-hover:text-[#9F7F48] transition-colors">
-                            {step.title}
-                          </h3>
-
-                          <p className="text-sm text-gray-600 font-sans leading-relaxed">
-                            {step.description}
-                          </p>
-
-                          {/* Deliverables Checklist */}
-                          <div className="pt-3 border-t border-[#EAE8E3] space-y-2">
-                            <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold block">
-                              Key Deliverables:
-                            </span>
-                            <div className="flex flex-wrap gap-2 text-xs text-gray-700">
-                              {step.highlights.map((h, i) => (
-                                <span
-                                  key={i}
-                                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FAF8F5] border border-[#EAE8E3] text-[11px]"
-                                >
-                                  <CheckCircle2 className="w-3 h-3 text-[#9F7F48]" />
-                                  {h}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                <rect x="9" y="11" width="4" height="2" rx="0.5" fill="#EF4444" />
+                <rect x="27" y="11" width="4" height="2" rx="0.5" fill="#EF4444" />
+              </svg>
+            </motion.div>
           </div>
 
           {/* ======================================================== */}
-          {/* 2. MOBILE & TABLET ROADMAP (Screen width < 1024px) */}
+          {/* MOBILE LEFT ROAD TRACK & TRAVELLING VAN (< 1024px) */}
           {/* ======================================================== */}
-          <div className="lg:hidden relative w-full h-[2500px]">
-            {/* Mobile Left-Rail SVG Track & Animated Van */}
-            <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 pointer-events-none z-10">
-              <svg
-                className="w-full h-full"
-                viewBox="0 0 60 2500"
-                fill="none"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <linearGradient id="mobile-headlight-beam" x1="0" y1="0" x2="0" y2="-1">
-                    <stop offset="0%" stopColor="#DFCA9F" stopOpacity="0.45" />
-                    <stop offset="100%" stopColor="#DFCA9F" stopOpacity="0" />
-                  </linearGradient>
-                  <linearGradient id="mobile-gold-road" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#DFCA9F" />
-                    <stop offset="50%" stopColor="#C5A46D" />
-                    <stop offset="100%" stopColor="#9F7F48" />
-                  </linearGradient>
-                </defs>
+          <div className="lg:hidden absolute left-5 top-0 bottom-0 w-8 pointer-events-none z-10">
+            {/* Base Dashed Line */}
+            <div className="absolute top-[10%] bottom-[10%] left-1/2 -translate-x-1/2 w-1.5 border-r-2 border-dashed border-[#D4CEBF] opacity-80" />
 
-                {/* Base Road */}
-                <path
-                  d={mobilePathData}
-                  stroke="#E2DDD5"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  strokeDasharray="6 6"
-                  opacity="0.85"
-                />
+            {/* Active Gold Filled Track */}
+            <motion.div
+              style={{
+                top: "10%",
+                height: roadGoldHeight
+              }}
+              className="absolute left-1/2 -translate-x-1/2 w-1 bg-[#C5A46D] rounded-full"
+            />
 
-                {/* Active Filled Gold Road */}
-                <motion.path
-                  ref={mobilePathRef}
-                  d={mobilePathData}
-                  stroke="url(#mobile-gold-road)"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                  style={{
-                    pathLength: smoothProgress
-                  }}
-                />
-
-                {/* Mobile Milestone Nodes */}
-                {mobileNodes.map((node, i) => {
-                  const isPast = activeStep >= i + 1;
-                  const isCurrent = activeStep === i + 1;
-                  return (
-                    <g
-                      key={node.number}
-                      transform={`translate(${node.x}, ${node.y})`}
-                      className="cursor-pointer pointer-events-auto"
-                      onClick={() => scrollToStep(i + 1)}
-                    >
-                      {isCurrent && (
-                        <circle r="22" fill="none" stroke="#C5A46D" strokeWidth="1.5" opacity="0.8">
-                          <animate attributeName="r" values="18;26;18" dur="2s" repeatCount="indefinite" />
-                          <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite" />
-                        </circle>
-                      )}
-                      <circle
-                        r="16"
-                        fill={isPast ? "#171717" : "#FFFFFF"}
-                        stroke={isPast ? "#C5A46D" : "#D4CEBF"}
-                        strokeWidth="2.5"
-                        className="transition-colors duration-300 shadow-md"
-                      />
-                      <text
-                        y="4"
-                        fill={isPast ? "#DFCA9F" : "#7A7568"}
-                        fontSize="10"
-                        fontWeight="bold"
-                        textAnchor="middle"
-                        fontFamily="monospace"
-                      >
-                        {node.number}
-                      </text>
-                    </g>
-                  );
-                })}
-
-                {/* Mobile Animated RCM Van */}
-                <g
-                  transform={`translate(${mobileTruckPos.x}, ${mobileTruckPos.y}) rotate(${mobileTruckPos.angle}) scale(0.75)`}
-                  className="transition-transform duration-75 ease-out"
-                >
-                  <polygon
-                    points="-10,-32 -26,-75 26,-75 10,-32"
-                    fill="url(#mobile-headlight-beam)"
-                  />
-                  <rect
-                    x="-16"
-                    y="-32"
-                    width="32"
-                    height="64"
-                    rx="6"
-                    fill="#171717"
-                    stroke="#C5A46D"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M -12,-15 L -10,-26 L 10,-26 L 12,-15 Z"
-                    fill="#2E3338"
-                    stroke="#474F56"
-                    strokeWidth="0.5"
-                  />
-                  <rect x="-11" y="-9" width="22" height="32" rx="3" fill="#C5A46D" />
-                  <text
-                    x="0"
-                    y="10"
-                    fill="#171717"
-                    fontSize="8"
-                    fontWeight="900"
-                    textAnchor="middle"
-                    letterSpacing="0.05em"
-                  >
-                    RCM
-                  </text>
-                  <circle cx="-10" cy="-31" r="2.5" fill="#FFF2B2" />
-                  <circle cx="10" cy="-31" r="2.5" fill="#FFF2B2" />
-                  <rect x="-13" y="30" width="5" height="2" rx="0.5" fill="#EF4444" />
-                  <rect x="8" y="30" width="5" height="2" rx="0.5" fill="#EF4444" />
-                </g>
+            {/* Mobile Travelling Van */}
+            <motion.div
+              style={{
+                top: vanTop
+              }}
+              className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-7 h-14"
+            >
+              <svg viewBox="0 0 40 80" className="w-full h-full drop-shadow-md overflow-visible">
+                <rect x="8" y="12" width="24" height="48" rx="5" fill="#171717" stroke="#C5A46D" strokeWidth="1.5" />
+                <rect x="11" y="20" width="18" height="20" rx="2" fill="#C5A46D" />
+                <text x="20" y="32" fill="#171717" fontSize="6.5" fontWeight="900" textAnchor="middle">
+                  RCM
+                </text>
+                <circle cx="12" cy="58" r="2" fill="#FFF2B2" />
+                <circle cx="28" cy="58" r="2" fill="#FFF2B2" />
               </svg>
-            </div>
+            </motion.div>
+          </div>
 
-            {/* Mobile Step Cards */}
-            <div className="relative z-20 pl-12 sm:pl-18">
-              {steps.map((step, index) => {
-                const isActive = activeStep === index + 1;
-                return (
-                  <div
-                    key={step.number}
-                    id={`process-step-${index + 1}`}
-                    className="h-[500px] flex items-center"
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-40px" }}
-                      transition={{ duration: 0.5 }}
-                      className={`w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-white border transition-all duration-300 shadow-md ${
-                        isActive
-                          ? "border-[#C5A46D] ring-2 ring-[#C5A46D]/25 shadow-xl"
-                          : "border-[#EAE8E3]"
-                      }`}
-                    >
-                      <div className="relative aspect-[16/9] w-full bg-neutral-100">
-                        <Image
-                          src={step.image}
-                          alt={step.title}
-                          fill
-                          sizes="(max-width: 1024px) 100vw, 500px"
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                        <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[#DFCA9F] text-[10px] font-mono font-bold">
-                          PHASE {step.number}
-                        </div>
-                      </div>
+          {/* ======================================================== */}
+          {/* STEP ROWS (Generous Natural Height with Zero Overlap) */}
+          {/* ======================================================== */}
+          <div className="relative z-20 space-y-10 sm:space-y-14 lg:space-y-16">
+            {steps.map((step, index) => {
+              const isLeft = step.side === "left";
+              const isActive = activeStep === index + 1;
+              const isPast = activeStep >= index + 1;
 
-                      <div className="p-5 sm:p-7 text-left space-y-2.5">
-                        <span className="text-[10px] uppercase tracking-widest text-[#9F7F48] font-bold block">
-                          {step.eyebrow}
-                        </span>
-                        <h3 className="text-lg sm:text-xl font-serif text-[#171717] font-semibold">
-                          {step.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-gray-600 font-sans leading-relaxed">
-                          {step.description}
-                        </p>
-                        <div className="pt-2.5 border-t border-[#EAE8E3]">
-                          <div className="flex flex-wrap gap-1.5 text-[10px] sm:text-[11px] text-gray-700">
-                            {step.highlights.map((h, i) => (
-                              <span
-                                key={i}
-                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#FAF8F5] border border-[#EAE8E3]"
-                              >
-                                <CheckCircle2 className="w-2.5 h-2.5 text-[#9F7F48]" />
-                                {h}
-                              </span>
-                            ))}
-                          </div>
+              return (
+                <div
+                  key={step.number}
+                  id={`process-step-${index + 1}`}
+                  className="relative min-h-[460px] sm:min-h-[500px] flex items-center py-4"
+                >
+                  {/* DESKTOP 12-COLUMN ALIGNED ROW (>= 1024px) */}
+                  <div className="hidden lg:grid grid-cols-12 items-center w-full gap-6">
+                    {/* Left Column (Card if side is left) */}
+                    <div className="col-span-5">
+                      {isLeft && (
+                        <StepCardContent step={step} isActive={isActive} />
+                      )}
+                    </div>
+
+                    {/* Center Column: Milestone Node Button */}
+                    <div className="col-span-2 flex flex-col items-center justify-center relative">
+                      <button
+                        onClick={() => scrollToStep(index + 1)}
+                        className="relative group focus:outline-none cursor-pointer"
+                        aria-label={`Jump to Phase ${step.number}: ${step.title}`}
+                      >
+                        {/* Outer Pulsing Ring when Active */}
+                        {isActive && (
+                          <span className="absolute -inset-2.5 rounded-full border-2 border-[#C5A46D] animate-ping opacity-75 pointer-events-none" />
+                        )}
+
+                        {/* Milestone Disc */}
+                        <div
+                          className={`w-14 h-14 rounded-full flex items-center justify-center text-sm font-mono font-bold transition-all duration-300 shadow-lg ${
+                            isPast
+                              ? "bg-[#171717] border-2 border-[#C5A46D] text-[#DFCA9F] shadow-[0_0_20px_rgba(197,164,109,0.35)] scale-110"
+                              : "bg-white border-2 border-[#D4CEBF] text-gray-500 hover:border-[#C5A46D]"
+                          }`}
+                        >
+                          {step.number}
                         </div>
-                      </div>
-                    </motion.div>
+                      </button>
+                    </div>
+
+                    {/* Right Column (Card if side is right) */}
+                    <div className="col-span-5">
+                      {!isLeft && (
+                        <StepCardContent step={step} isActive={isActive} />
+                      )}
+                    </div>
                   </div>
-                );
-              })}
-            </div>
+
+                  {/* MOBILE & TABLET FLEX ROW (< 1024px) */}
+                  <div className="lg:hidden flex items-start sm:items-center gap-4 sm:gap-6 w-full pl-12 sm:pl-16">
+                    {/* Node on mobile left rail */}
+                    <div className="flex-shrink-0 relative">
+                      <button
+                        onClick={() => scrollToStep(index + 1)}
+                        className="relative group focus:outline-none cursor-pointer"
+                        aria-label={`Jump to Phase ${step.number}`}
+                      >
+                        {isActive && (
+                          <span className="absolute -inset-2 rounded-full border-2 border-[#C5A46D] animate-ping opacity-75 pointer-events-none" />
+                        )}
+                        <div
+                          className={`w-11 h-11 rounded-full flex items-center justify-center text-xs font-mono font-bold transition-all duration-300 shadow-md ${
+                            isPast
+                              ? "bg-[#171717] border-2 border-[#C5A46D] text-[#DFCA9F] scale-105"
+                              : "bg-white border-2 border-[#D4CEBF] text-gray-500"
+                          }`}
+                        >
+                          {step.number}
+                        </div>
+                      </button>
+                    </div>
+
+                    {/* Mobile Card */}
+                    <div className="flex-1 min-w-0">
+                      <StepCardContent step={step} isActive={isActive} isMobile />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Bottom Contact / Journey Completion Banner */}
-        <div className="mt-16 sm:mt-24 p-6 sm:p-10 rounded-3xl bg-white border border-[#EAE8E3] shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-left">
+        {/* ============================================================ */}
+        {/* BOTTOM CONTACT / JOURNEY COMPLETION BANNER */}
+        {/* Generous margin ensures it NEVER overlaps the cards */}
+        {/* ============================================================ */}
+        <div className="mt-20 sm:mt-28 p-6 sm:p-10 rounded-3xl bg-white border border-[#EAE8E3] shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-left relative z-20">
           <div className="space-y-1.5">
             <span className="text-xs uppercase tracking-widest text-[#9F7F48] font-bold block">
               READY FOR STEP 01?
@@ -774,5 +496,82 @@ export default function ProcessTimeline() {
         </div>
       </div>
     </section>
+  );
+}
+
+// Reusable Step Card Component
+function StepCardContent({
+  step,
+  isActive,
+  isMobile = false
+}: {
+  step: StepItem;
+  isActive: boolean;
+  isMobile?: boolean;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.55 }}
+      className={`group w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-white border transition-all duration-300 shadow-md hover:shadow-xl ${
+        isActive
+          ? "border-[#C5A46D] ring-2 ring-[#C5A46D]/25 shadow-[0_15px_35px_rgba(197,164,109,0.18)]"
+          : "border-[#EAE8E3] hover:border-[#C5A46D]/50"
+      }`}
+    >
+      {/* Photograph */}
+      <div
+        className={`relative w-full overflow-hidden bg-neutral-100 ${
+          isMobile ? "aspect-[16/9]" : "aspect-[16/10]"
+        }`}
+      >
+        <Image
+          src={step.image}
+          alt={step.title}
+          fill
+          sizes="(max-width: 1024px) 100vw, 550px"
+          className="object-cover group-hover:scale-105 transition-transform duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+        <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[#DFCA9F] text-[11px] font-mono font-bold">
+          PHASE {step.number}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 sm:p-7 lg:p-8 text-left space-y-3">
+        <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-sans font-semibold text-[#9F7F48] block">
+          • {step.eyebrow}
+        </span>
+
+        <h3 className="text-xl sm:text-2xl font-serif text-[#171717] font-semibold group-hover:text-[#9F7F48] transition-colors">
+          {step.title}
+        </h3>
+
+        <p className="text-xs sm:text-sm text-gray-600 font-sans leading-relaxed">
+          {step.description}
+        </p>
+
+        {/* Deliverables Checklist */}
+        <div className="pt-3 border-t border-[#EAE8E3] space-y-2">
+          <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold block">
+            Key Deliverables:
+          </span>
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-gray-700">
+            {step.highlights.map((h, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FAF8F5] border border-[#EAE8E3]"
+              >
+                <CheckCircle2 className="w-3 h-3 text-[#9F7F48]" />
+                {h}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
