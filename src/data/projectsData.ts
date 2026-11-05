@@ -187,7 +187,7 @@ export const projectsData: Project[] = [
 
 export const beforeAfterComparison = {
   title: "Kitchen Transformation: Before & After",
-  subtitle: "Drag the slider to see how RCM Traders Limited transforms outdated spaces into bright, functional luxury.",
+  subtitle: "Scroll down to reveal how RCM transforms outdated spaces into bright luxury • Scroll up to inspect original.",
   location: "Worcestershire Residence",
   service: "Full Kitchen & Flooring Renovation",
   beforeImage: "/images/projects/before-kitchen.jpg",
